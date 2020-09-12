@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html style="height: 100%">
+  <head style="height: 100%">
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <title>JSON editor</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+  <body style="height: 100%">
+    <div style="height: 100%">
+      <textarea id="ta" style="height: 100%; width: 100%; font-family: monospace"></textarea>
+    </div>
   </body>
 </html> 
