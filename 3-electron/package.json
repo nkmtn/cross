@@ -1,0 +1,12 @@
+{
+  "name": "3-electron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^10.1.1"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
