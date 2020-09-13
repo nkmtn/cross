@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_action_Open_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-                                                    "Выберите файл ключа",
+                                                    "Выберите json файл",
                                                     QString(),
                                                     "JSON (*.json);;All Files (*);;");
 
@@ -30,6 +30,7 @@ void MainWindow::on_action_Open_triggered()
 
     QTextStream in(&f);
     ui->textEdit->setText(in.readAll());
+    f.close();
 }
 
 void MainWindow::on_action_Save_triggered()
