@@ -6,5 +6,5 @@
 * java -cp .:./lib/javax.json-1.0.jar JsonEditor
 
 ## 3- electron
-* yarn start 
-* (OR) npm start
+* yarn (OR npm) install 
+* yarn (OR npm) start
