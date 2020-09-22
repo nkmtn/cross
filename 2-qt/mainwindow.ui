@@ -40,6 +40,7 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_Open"/>
+    <addaction name="action_OpenLink"/>
     <addaction name="action_Save"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
@@ -53,6 +54,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_OpenLink">
+   <property name="text">
+    <string>&amp;Open link...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
   <action name="action_Save">

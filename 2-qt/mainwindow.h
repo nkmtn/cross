@@ -7,6 +7,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QJsonDocument>
+#include <QInputDialog>
+#include <QDebug>
+#include "filedownloader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,10 +25,14 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    FileDownloader* downloader;
 
 private slots:
     void on_action_Open_triggered();
     void on_action_Save_triggered();
     void on_action_Quit_triggered();
+    void on_action_OpenLink_triggered();
+    void loadLink();
+    void errLink();
 };
 #endif // MAINWINDOW_H

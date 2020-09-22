@@ -70,3 +70,32 @@ void MainWindow::on_action_Quit_triggered()
 {
     QApplication::quit();
 }
+
+void MainWindow::on_action_OpenLink_triggered()
+{
+    bool ok;
+    QString text = QInputDialog::getText(this, "Введите адрес JSON файла",
+                                             "Адрес:", QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+    if (ok && !text.isEmpty()){
+        QUrl linkUrl(text);
+        downloader = new FileDownloader(linkUrl, this);
+        connect(downloader, SIGNAL (downloaded()), this, SLOT (loadLink()));
+        connect(downloader, SIGNAL (error()), this, SLOT (errLink()));
+    }
+}
+void MainWindow::loadLink()
+{
+    ui->textEdit->setText(downloader->downloadedData());
+}
+
+void MainWindow::errLink()
+{
+    QMessageBox errorMessageBox(this);
+    errorMessageBox.setText(tr("Не доступная ссылка"));
+    errorMessageBox.setStandardButtons(QMessageBox::Ok);
+    errorMessageBox.setDefaultButton(QMessageBox::Ok);
+    errorMessageBox.setIcon(QMessageBox::Warning);
+    errorMessageBox.setWindowTitle(tr("Error"));
+    errorMessageBox.exec();
+}
