@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -47,6 +48,12 @@ public class JsonEditor {
         openMenuItem.setAccelerator(
             KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK)
         );
+        
+        final JMenuItem openLinkMenuItem = new JMenuItem("Open link...");
+        openLinkMenuItem.addActionListener(event -> this.openLink());
+        openLinkMenuItem.setAccelerator(
+            KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK)
+        );
 
         final JMenuItem saveMenuItem = new JMenuItem("Save...");
         saveMenuItem.addActionListener(event -> this.save());
@@ -62,6 +69,7 @@ public class JsonEditor {
 
         final JMenu menu =new JMenu("File");
         menu.add(openMenuItem);
+        menu.add(openLinkMenuItem);
         menu.add(saveMenuItem);
         menu.addSeparator();
         menu.add(quitMenuItem);
@@ -115,6 +123,57 @@ public class JsonEditor {
                 JOptionPane.ERROR_MESSAGE
             );
         }
+    }
+    
+    private void openLink() {
+
+        String message = "Введи ссылку на файл";
+        String text = JOptionPane.showInputDialog(frame, message);
+        if (text == null) {
+             JOptionPane.showMessageDialog(
+                new JFrame(),
+                "Не заданна ссылка",
+                "I/O Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+        
+        try (BufferedInputStream in = new BufferedInputStream(new URL(text).openStream())) {
+            byte[] contents = new byte[1024];
+
+            int bytesRead = 0;
+            String strFileContents = ""; 
+            while((bytesRead = in.read(contents)) != -1) { 
+                strFileContents += new String(contents, 0, bytesRead);              
+            }
+            
+            pane.setText(strFileContents);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                new JFrame(),
+                "Не валидная ссылка",
+                "I/O Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+       /* 
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File file = fc.getSelectedFile();
+
+        try {
+            FileReader reader = new FileReader(file.getAbsolutePath());
+            pane.read(reader, file.getAbsolutePath());
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(
+                new JFrame(),
+                "Can't read JSON data from file",
+                "I/O Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }*/
     }
 
     private void save() {
