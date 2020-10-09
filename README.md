@@ -8,6 +8,10 @@
 ## 2-qt
 * собирать в qt creator
 
-## 3- electron
+## 3-electron
 * yarn (OR npm) install 
 * yarn (OR npm) start
+
+## 4-python
+* добавить библиотеку
+* собирать в pycharm
