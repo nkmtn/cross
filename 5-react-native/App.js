@@ -5,110 +5,100 @@
  * @format
  * @flow strict-local
  */
-
+ 
 import React from 'react';
+ 
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
+  Alert,
+  Button,
+  TextInput,
+  TouchableNativeFeedback,
   View,
-  Text,
-  StatusBar,
 } from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
+ 
+import RNFS from 'react-native-fs';
+import InputScrollView from 'react-native-input-scroll-view';
+ 
+ 
+const App = () => {
+ 
+  let [url, changeUrl] = React.useState('Please, enter json url here');
+  let [file, changeFile] = React.useState('Please, enter file name here');
+  let [data, changeData] = React.useState('');
+ 
+  const getJSON = (url) => {
+    fetch(url)
+      .then((response) => {
+        if (response.ok)
+          response.text()
+            .then(function (text) {
+              changeData(text)
+            });
+        else {
+          Alert.alert('Error ' + response.status)
+        }
+      })
+      .catch((error) => {
+        Alert.alert(error.message);
+      });
+  };
+ 
+  const save = (text) => {
+    try {
+      JSON.parse(text)
+    } catch (e) {
+        if (e instanceof SyntaxError) {
+          Alert.alert('Invalid JSON');
+        }
+        return
+    }
+ 
+    var path = RNFS.DocumentDirectoryPath + '/' + file;
+ 
+    RNFS.writeFile(path, data, 'utf8')
+    .then((success) => {
+      Alert.alert('File saved');
+    })
+    .catch((err) => {
+      Alert.alert(err.message);
+    });
+  }
+  
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <TextInput
+        onChangeText={text => changeUrl(text)}
+        value={url}
+      />
+      <TouchableNativeFeedback>
+        <Button
+          title="Load"
+          onPress={() => getJSON(url)}
+        />
+      </TouchableNativeFeedback>
+ 
+      <TextInput
+        onChangeText={text => changeFile(text)}
+        value={file}
+      />
+      <TouchableNativeFeedback>
+        <Button
+          title="Save"
+          onPress={() => save(data)}
+        />
+      </TouchableNativeFeedback>
+ 
+      <InputScrollView>
+        <View>
+          <TextInput
+            multiline
+            onChangeText={text => changeData(text)} 
+            value={data} 
+          />
+        </View>
+      </InputScrollView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
-
+ 
 export default App;
