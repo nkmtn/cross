@@ -1,6 +1,10 @@
-# cross: Инструкция по запуску
------
+# cross
 
+Учебный проект по курсу кроссплатформенной разработки 5 версий json редактора.
+
+-----
+Инструкция по запуску:
+ 
 ## 1-java
 * javac -cp ./lib/javax.json-1.0.jar JsonEditor.java
 * java -cp .:./lib/javax.json-1.0.jar JsonEditor
