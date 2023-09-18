@@ -1,30 +1,29 @@
 # cross
 
-Учебный проект по курсу кроссплатформенной разработки 5 версий json редактора.
+Educational project for the cross-platform development course. 5 versions of json editor.
 
 -----
-Инструкция по запуску:
+Running instructions:
  
 ## 1-java
 * javac -cp ./lib/javax.json-1.0.jar JsonEditor.java
 * java -cp .:./lib/javax.json-1.0.jar JsonEditor
 
 ## 2-qt
-* собирать в qt creator
+* just build it in QT Creator
 
 ## 3-electron
 * yarn (OR npm) install 
 * yarn (OR npm) start
 
 ## 4-python
-* добавить библиотеку
-* собирать в pycharm
+* Add libs and build in PyCharm
 
 ## 5-react-native
-* Использовать android studio
-* Выкачать обязательные компоненты
-* Установить sdk 29 (на данный момент: последня - 30, но rn не умеет ещё с ней работать)
-* Установить эмулятор для 29 соответственно
-* Убедиться в добавлении переменной окружения ANDROID_HOME
+* Use Android Studio
+* Add all needed requirements
+* Install sdk 29 (edit: when I studied this course it was reasonable, now I can try using more recent versions)
+* Install emulator for 29 accordingly
+* Make sure to add the ANDROID_HOME environment variable
 * yarn global add react-native
-+ создание приложения: react-native init [имя]
++ creating an application: react-native init [name]
